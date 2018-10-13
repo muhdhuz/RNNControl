@@ -5,7 +5,8 @@ The code here is closely integrated with [AudioDataloader](https://github.com/mu
 
 **Files**  
 * main.ipynb: for training and saving model (an RNN)
-* explore_generation.ipynb: to do cool stuff i.e. audio synthesis with the trained model 
+* explore_generation.ipynb: to do cool stuff i.e. audio synthesis with the trained model
+* model: pre-trained models can be found here 
 
 **Dependencies**  
 * pytorch 0.4.0  
