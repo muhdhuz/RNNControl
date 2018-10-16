@@ -12,8 +12,8 @@ Clone those repositories and run the notebooks from this repo alongside them as 
 +--explore_generation.ipynb  
 +--main.ipynb  
 +--data  
-&nbsp;&nbsp;&nbsp;&nbsp;|+--dataset  
-&nbsp;&nbsp;&nbsp;&nbsp;|+--dataparams
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|+--dataset  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|+--dataparams
 
 **Files**  
 * main.ipynb: for training and saving model (an RNN)
