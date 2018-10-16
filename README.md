@@ -9,8 +9,10 @@ The code here is closely integrated with [AudioDataloader](https://github.com/mu
 * model: pre-trained models can be found here 
 
 **Dependencies**  
-* pytorch 0.4.0  
-* librosa 0.6.1  
+* pytorch 0.4.0
+* [AudioDataloader](https://github.com/muhdhuz/AudioDataloader)
+* [paramManager](https://github.com/lonce/paramManager)
+  
 
 **Authors**  
 * Muhammad Huzaifah
