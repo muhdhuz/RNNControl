@@ -212,7 +212,7 @@ def time_taken(elapsed):
 def mydate() :
 	return (datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
-def plot_signal(result,start=None,figsize=(20,1),grid=False,logy=False):
+def plot_signal(result,start=None,figsize=(20,1),grid=False,logy=False,start_min_max=[-1.,1.]):
 	"""Convenience function to plot signals.
 	start = a float or list of floats containing the value(s) where a vertical line will be plotted
 	"""
@@ -225,9 +225,9 @@ def plot_signal(result,start=None,figsize=(20,1),grid=False,logy=False):
 	if start is not None:
 		if isinstance(start, (list,)):
 			for value in start: 
-				ax.vlines(x=value,ymin=-1.0, ymax=1.0, color='r')
+				ax.vlines(x=value,ymin=start_min_max[0], ymax=start_min_max[1], color='r')
 		else:
-			ax.vlines(x=start,ymin=-1.0, ymax=1.0, color='r')
+			ax.vlines(x=start,ymin=start_min_max[0], ymax=start_min_max[1], color='r')
 	if grid:
 		plt.grid()
 	plt.show()
