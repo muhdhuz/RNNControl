@@ -209,7 +209,9 @@ def time_taken(elapsed):
 	h, m = divmod(m, 60)
 	return "%d:%02d:%02d" % (h, m, s)
 
-def mydate() :
+def mydate():
+	"""returns current date and time"""
+	from datetime import datetime
 	return (datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
 def plot_signal(result,start=None,figsize=(20,1),grid=False,logy=False,start_min_max=[-1.,1.]):
@@ -237,7 +239,7 @@ def mostRecent(strPat) :
 	files.sort(key=os.path.getmtime)
 	return files[-1]
 	
-def listDirectory(directory, fileExtList,regex=None):										 
+def listDirectory(directory,fileExtList='.wav',regex=None):										 
 	"""returns a list of file info objects in directory that contains extension in the list fileExtList (include the . in your extension string)
 	and regex if specified
 	fileList - fullpath from working directory to files in directory
@@ -256,3 +258,67 @@ def listDirectory(directory, fileExtList,regex=None):
 			   for f in fnameList
 				if os.path.splitext(f)[1] in fileExtList]  
 	return fileList , fnameList
+
+def listDirectory_all(directory,topdown=True):
+	"""returns a list of all files in directory and all its subdirectories"""
+	fileList = []
+	fnameList = []
+	for root, _, files in os.walk(directory, topdown=topdown):
+		for name in files:
+			fileList.append(os.path.join(root, name))
+			fnameList.append(name)
+	return fileList , fnameList
+
+def mass_delete(directory,regex,topdown=True):
+	"""deletes all files matching regex in directory and all its subdirectories"""
+	deleteList = []
+	for root, _, files in os.walk(directory, topdown=topdown):
+		for name in files:
+			if regex in name:
+				deleteList.append(name)
+				os.remove(os.path.join(root, name))
+	return deleteList
+
+def extract_nsynth_pitch(filename):
+	"""function to extract midi pitch from nsynth dataset base filenames
+	keyboard_acoustic_000-059-075.wav -> 59""" 
+	import re
+	n = re.findall(r'(?<=-).*?(?=-)', filename)[0]
+	if (n[0]=='0') :
+		midinum=int(n[1:])
+	else :
+		midinum=int(n)
+	return midinum
+
+def extract_nsynth_instrument(filename):
+	"""function to extract midi pitch from nsynth dataset base filenames
+	keyboard_acoustic_000-059-075.wav -> keyboard_acoustic""" 
+	import re
+	n = re.search('(.*?_.*?)_', filename).group(1)
+	return n
+
+def extract_nsynth_volume(filename):
+	"""function to extract volume level from nsynth dataset base filenames
+	keyboard_acoustic_000-059-075.wav -> 75""" 
+	return filename[-6:-4]
+
+def save_obj(obj, dir, name):
+	"""to save an obj using pickle"""
+	import pickle
+	with open(dir + '/' + name + '.pkl', 'wb+') as f:
+		pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
+
+def load_obj(dir, name):
+	"""to load a pickled object"""
+	import pickle
+	with open(dir + '/' + name + '.pkl', 'rb') as f:
+		return pickle.load(f)
+
+def chunker(seq, size):
+	"""returns chunks of length size for given sequence.
+	can be used in a loop -
+	A = 'ABCDEFG'
+	for group in chunker(A, 2):
+    	print(group)
+	-> 'AB' 'CD' 'EF' 'G'"""
+	return (seq[pos:pos + size] for pos in range(0, len(seq), size))
